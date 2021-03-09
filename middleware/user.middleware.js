@@ -1,7 +1,6 @@
-const { errorCodes } = require('../constant');
 const { User } = require('../dataBase/models');
 const { userValidators } = require('../validators');
-const { errorMessages } = require('../error');
+const { errorMessages, ErrorHendler } = require('../error');
 
 module.exports = {
     isUserValid: (req, res, next) => {
@@ -11,25 +10,22 @@ module.exports = {
             if (error) {
                 throw new Error(error.details[0].message);
             }
-
-            next();
         } catch (e) {
-            res.status(errorCodes.BAD_REQUEST).json(e.message);
+            next(e);
         }
     },
 
     isEmailCreated: async (req, res, next) => {
         try {
-            const { email, language = 'en' } = req.body;
+            const { email } = req.body;
 
             const user = await User.findOne({ email });
-            if (user) {
-                throw new Error(errorMessages.EMAIL_EXIST[language]);
-            }
 
-            next();
+            if (user) {
+                throw new ErrorHendler(errorMessages.EMAIL_EXIST);
+            }
         } catch (e) {
-            res.json(e.message);
+            next(e);
         }
     },
 
@@ -38,6 +34,7 @@ module.exports = {
             const { name } = req.body;
 
             const user = await User.findOne({ name });
+
             if (user) {
                 throw new Error(`Name: ${name} already exist`);
             }

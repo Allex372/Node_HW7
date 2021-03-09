@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const { constants } = require('../constant');
-const { errorMessages } = require('../error');
+const { errorMessages, ErrorHendler } = require('../error');
 
 const { O_Auth } = require('../dataBase/models');
 
@@ -17,22 +17,17 @@ module.exports = {
 
             jwt.verify(access_token, 'JWT_ACCESS', (err) => {
                 if (err) {
-                    throw new Error(errorMessages.NOT_VALID_TOKEN[language]);
+                    throw new ErrorHendler(errorMessages.NOT_VALID_TOKEN);
                 }
             });
 
             const tokens = await O_Auth.findOne({ access_token }).populate('_user_id');
+
             if (!tokens) {
-                throw new Error(errorMessages.NOT_VALID_TOKEN[language]);
+                throw new ErrorHendler(errorMessages.NOT_VALID_TOKEN);
             }
-
-            console.log('*************************************************************************');
-            console.log(tokens);
-            console.log('*************************************************************************');
-
-            next();
         } catch (e) {
-            res.json(e.message);
+            next(e);
         }
     },
 };

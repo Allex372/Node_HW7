@@ -1,61 +1,61 @@
 module.exports = {
     TOO_SMALL_PASSWORD: {
-        en: 'Too small password',
-        ua: 'Пароль занадто короткий'
+        status: 401,
+        customCode: 4011
     },
 
     SOME_FIELD_IS_EMPTY: {
-        en: 'Some field is empty',
-        ua: 'Пусте одне або декілька полів'
+        status: 401,
+        customCode: 4012
     },
 
     USER_NOT_FOUND: {
-        en: 'User not found',
-        ua: 'Користувача не знайдено'
+        status: 404,
+        customCode: 4041
     },
 
     NOT_VALID_ID: {
-        en: 'Not valid id',
-        ua: 'Не існуючий ID'
+        status: 400,
+        customCode: 4001
     },
 
     USER_ALREADY_EXISTED: {
-        en: 'User already existed',
-        ua: 'Ім*я користувача занято'
+        status: 401,
+        customCode: 4013
     },
 
     USER_IS_CREATED: {
-        en: 'User is Created!',
-        ua: 'Користувача створено'
+        status: 201,
+        customCode: 2011
     },
 
     USER_WAS_DELETED: {
-        en: 'User deleted',
-        ua: 'Користувача видалено'
+        status: 201,
+        customCode: 4012
     },
 
     TOKEN_REQUIRED: {
-        en: 'Token is required',
-        ua: 'Токен вмер'
+        status: 401,
+        customCode: 4014
     },
 
     NOT_VALID_TOKEN: {
-        en: 'Not valid token',
-        ua: 'Токен не валідний'
+        status: 401,
+        customCode: 4015
     },
 
     EMAIL_EXIST: {
-        en: 'Email already exist',
-        ua: 'Електронна скринька уже зареєстрована'
+        status: 401,
+        customCode: 4016
     },
 
     USER_NOT_ENTER_YET: {
-        en: 'User Not Enter Yet',
-        ua: 'Користувач ще не ввходив у систему'
+        status: 401,
+        customCode: 4017
     },
 
     WRONG_EMAIL_TEMPLATE: {
-        en: 'Wrong Email template',
-        ua: 'Не вірний емаіл темплейт'
+        status: 401,
+        customCode: 4018
     }
 };

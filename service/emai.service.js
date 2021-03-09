@@ -1,7 +1,7 @@
 const nodemailer = require('nodemailer');
 const EmailTemplates = require('email-templates');
 const path = require('path');
-const { errorMessages } = require('../error');
+const { errorMessages, ErrorHendler } = require('../error');
 
 const { ROOT_EMAIL, ROOT_EMAIL_PASSWORD } = require('../config/config');
 const templatesInfo = require('../email-templates');
@@ -25,7 +25,7 @@ const sendMail = async (userMail, action, context) => {
         const templatesInfoElement = templatesInfo[action];
 
         if (!templatesInfoElement) {
-            throw new Error(errorMessages.WRONG_EMAIL_TEMPLATE);
+            throw new ErrorHendler(errorMessages.WRONG_EMAIL_TEMPLATE);
         }
 
         const html = await templatesParser.render(templatesInfoElement.templateName, context);

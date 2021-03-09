@@ -4,17 +4,17 @@ const { passwordsHasher } = require('../helper');
 const { errorMessages } = require('../error');
 
 module.exports = {
-    getAllUsers: async (req, res) => {
+    getAllUsers: async (req, res, next) => {
         try {
             const allUsers = await userService.findUsers();
 
             res.json(allUsers);
         } catch (e) {
-            res.status(errorCodes.BAD_REQUEST).json.message(e);
+            next(e);
         }
     },
 
-    getSingleUser: async (req, res) => {
+    getSingleUser: async (req, res, next) => {
         try {
             const userId = req.params.id;
 
@@ -22,11 +22,11 @@ module.exports = {
 
             res.json(user);
         } catch (e) {
-            res.json(e.message);
+            next(e);
         }
     },
 
-    createUser: async (req, res) => {
+    createUser: async (req, res, next) => {
         try {
             const { password, email, name } = req.body;
 
@@ -38,11 +38,11 @@ module.exports = {
 
             res.status(201).json(errorMessages.USER_IS_CREATED);
         } catch (e) {
-            res.json(e);
+            next(e);
         }
     },
 
-    deleteSingleUser: async (req, res) => {
+    deleteSingleUser: async (req, res, next) => {
         try {
             const userId = req.params.id;
 
@@ -56,7 +56,7 @@ module.exports = {
 
             res.json(`${name} was deleted`);
         } catch (e) {
-            res.json(e.message);
+            next(e);
         }
     }
 };

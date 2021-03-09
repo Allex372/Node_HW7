@@ -20,6 +20,14 @@ app.use(express.static(path.join(__dirname, 'static')));
 
 app.use('/', apiRouter);
 
+app.use('*', (err, req, res, next) => {
+    res
+        .status(err.status)
+        .json({
+            text: err.message,
+        });
+});
+
 app.listen(config.PORT, () => {
     console.log(`App ${config.PORT} in progress`);
 });
