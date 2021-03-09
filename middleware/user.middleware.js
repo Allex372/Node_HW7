@@ -38,10 +38,8 @@ module.exports = {
             if (user) {
                 throw new Error(`Name: ${name} already exist`);
             }
-
-            next();
         } catch (e) {
-            res.json(e.message);
+            next(e);
         }
     }
 };
